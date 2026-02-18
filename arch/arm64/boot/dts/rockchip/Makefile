@@ -280,3 +280,8 @@ rk3588-rock-5b-pcie-srns-dtbs := rk3588-rock-5b.dtb \
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-haikou-video-demo.dtb
 rk3588-tiger-haikou-haikou-video-demo-dtbs := rk3588-tiger-haikou.dtb \
 	rk3588-tiger-haikou-video-demo.dtbo
+
+# HDMI Overlay for Core3566
+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-core3566-hdmi.dtb
+dtb-$(CONFIG_ARCH_ROCKCHIP) += core3566-hdmi-overlay.dtbo
+rk3566-core3566-hdmi-dtbs := rk3566-core3566.dtb core3566-hdmi-overlay.dtbo

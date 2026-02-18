@@ -1,0 +1,83 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/soc/rockchip,vop2.h>
+
+/ {
+	compatible = "luckfox,core3566", "rockchip,rk3566";
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			hdmi-con {
+				compatible = "hdmi-connector";
+				type = "a";
+
+				port {
+					hdmi_con_in: endpoint {
+						remote-endpoint = <&hdmi_out_con>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&hdmi>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target = <&hdmi_in>;
+		__overlay__ {
+			hdmi_in_vp0: endpoint {
+				remote-endpoint = <&vp0_out_hdmi>;
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&hdmi_out>;
+		__overlay__ {
+			hdmi_out_con: endpoint {
+				remote-endpoint = <&hdmi_con_in>;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&hdmi_sound>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@5 {
+		target = <&vop>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@6 {
+		target = <&vop_mmu>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@7 {
+		target = <&vp0>;
+		__overlay__ {
+			vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+				reg = <ROCKCHIP_VOP2_EP_HDMI0>;
+				remote-endpoint = <&hdmi_in_vp0>;
+			};
+		};
+	};
+};
