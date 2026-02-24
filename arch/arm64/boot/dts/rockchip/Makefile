@@ -281,6 +281,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-haikou-video-demo.dtb
 rk3588-tiger-haikou-haikou-video-demo-dtbs := rk3588-tiger-haikou.dtb \
 	rk3588-tiger-haikou-video-demo.dtbo
 
-dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-core3566-hdmi.dtb
+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-core3566.dtb
+dtb-$(CONFIG_ARCH_ROCKCHIP) += core3566-gpu.dtbo
 dtb-$(CONFIG_ARCH_ROCKCHIP) += core3566-waveshare-cm4-io-base-b-hdmi.dtbo
 dtb-$(CONFIG_ARCH_ROCKCHIP) += core3566-waveshare-cm4-io-base-b-usb.dtbo
