@@ -1,0 +1,68 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/rk3568-cru.h>
+#include <dt-bindings/power/rk3568-power.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+
+/ {
+   compatible = "rockchip,rk3566";
+   #address-cells = <2>;
+   #size-cells = <2>;
+
+   fragment@0 {
+      target-path = "/";
+      __overlay__ {
+         npu: npu@fde40000 {
+            compatible = "rockchip,rk3588-rknn-core";
+            reg = <0x0 0xfde40000 0x0 0x1000>,
+                  <0x0 0xfde41000 0x0 0x1000>,
+                  <0x0 0xfde48000 0x0 0x1000>;
+            reg-names = "pc", "cna", "core";
+            interrupt-parent = <&gic>;
+            interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>;
+            clocks = <&cru ACLK_NPU>, <&cru HCLK_NPU>,
+                     <&cru CLK_NPU>, <&cru PCLK_NPU_PRE>;
+            clock-names = "aclk", "hclk", "npu", "pclk";
+            resets = <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
+            reset-names = "srst_a", "srst_h";
+            iommus = <&npu_mmu>;
+            power-domains = <&power RK3568_PD_NPU>;
+            status = "okay";
+         };
+
+         npu_mmu: iommu@fde49000 {
+            compatible = "rockchip,rk3568-iommu";
+            reg = <0x0 0xfde49000 0x0 0x100>;
+            interrupt-parent = <&gic>;
+            interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+            clocks = <&cru ACLK_NPU>, <&cru HCLK_NPU>;
+            clock-names = "aclk", "iface";
+            power-domains = <&power RK3568_PD_NPU>;
+            #iommu-cells = <0>;
+            status = "okay";
+         };
+      };
+   };
+
+   /* Move NPU power configuration from base DTS */
+   fragment@1 {
+      target = <&vdd_npu>;
+      __overlay__ {
+         regulator-name = "vdd_npu";
+         regulator-always-on;
+         regulator-boot-on;
+         regulator-min-microvolt = <500000>;
+         regulator-max-microvolt = <1350000>;
+         regulator-init-microvolt = <900000>;
+         regulator-ramp-delay = <6001>;
+         regulator-initial-mode = <0x2>;
+         status = "okay";
+
+         regulator-state-mem {
+            regulator-off-in-suspend;
+         };
+      };
+   };
+};

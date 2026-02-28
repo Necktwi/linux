@@ -3,7 +3,7 @@
 /plugin/;
 
 / {
-    compatible = "luckfox,core3566", "rockchip,rk3566";
+    compatible = "rockchip,rk3566";
 
     fragment@0 {
         target = <&vdd_gpu>;
