@@ -116,6 +116,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-powkiddy-rk2023.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-powkiddy-x55.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-quartz64-a.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-quartz64-b.dtb
+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-core3566.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-radxa-cm3-io.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-radxa-zero-3e.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-radxa-zero-3w.dtb
@@ -286,3 +287,10 @@ rk3588-rock-5b-pcie-srns-dtbs := rk3588-rock-5b.dtb \
 dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-haikou-video-demo.dtb
 rk3588-tiger-haikou-haikou-video-demo-dtbs := rk3588-tiger-haikou.dtb \
 	rk3588-tiger-haikou-video-demo.dtbo
+
+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-core3566.dtb
+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-gpu.dtbo
+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-npu.dtbo
+dtb-$(CONFIG_ARCH_ROCKCHIP) += core3566-waveshare-cm4-io-base-b-hdmi.dtbo
+dtb-$(CONFIG_ARCH_ROCKCHIP) += core3566-waveshare-cm4-io-base-b-usb.dtbo
+dtb-$(CONFIG_ARCH_ROCKCHIP) += core3566-waveshare-cm4-io-base-b-ov5647.dtbo
