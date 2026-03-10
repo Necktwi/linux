@@ -15,7 +15,7 @@
       target-path = "/";
       __overlay__ {
          npu: npu@fde40000 {
-            compatible = "rockchip,rk3588-rknn-core";
+            compatible = "rockchip,rk3568-rknpu";
             reg = <0x0 0xfde40000 0x0 0x1000>,
                   <0x0 0xfde41000 0x0 0x1000>,
                   <0x0 0xfde48000 0x0 0x1000>;
