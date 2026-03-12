@@ -1,32 +1,25 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 /dts-v1/;
 /plugin/;
-
 / {
     compatible = "rockchip,rk3566";
-
     fragment@0 {
-        target = <&vdd_gpu>;
+        target-path = "/";
         __overlay__ {
-            regulator-min-microvolt = <825000>;
-            regulator-max-microvolt = <1350000>;
-            regulator-init-microvolt = <900000>;
-            regulator-ramp-delay = <6001>;
-            regulator-always-on;
-            regulator-boot-on;
-            status = "okay";
-
-            regulator-state-mem {
-                regulator-off-in-suspend;
+            vdd_gpu: vdd-gpu {
+                compatible = "regulator-fixed";
+                regulator-name = "vdd_gpu";
+                regulator-min-microvolt = <900000>;
+                regulator-max-microvolt = <900000>;
+                regulator-always-on;
             };
         };
     };
     fragment@1 {
         target = <&gpu>;
         __overlay__ {
-            status = "okay";
             mali-supply = <&vdd_gpu>;
+            status = "okay";
         };
     };
-
 };
