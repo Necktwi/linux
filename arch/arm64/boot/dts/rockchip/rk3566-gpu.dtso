@@ -1,15 +1,13 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 /dts-v1/;
 /plugin/;
-
 / {
     compatible = "rockchip,rk3566";
-
     fragment@0 {
         target = <&gpu>;
         __overlay__ {
-            status = "okay";
             mali-supply = <&vdd_gpu>;
+            status = "okay";
         };
     };
 };

@@ -1,0 +1,95 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/dts-v1/;
+ /plugin/;
+#include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
+ #include <dt-bindings/clock/rk3568-cru.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ / {
+   compatible = "luckfox,core3566", "rockchip,rk3566";
+   // Fragment 0: Enable vicap hardware
+   fragment@0 {
+      target = <&vicap>;
+      __overlay__ {
+         status = "okay";
+      };
+   };
+   // Fragment 1: Enable vicap_mmu
+   fragment@1 {
+      target = <&vicap_mmu>;
+      __overlay__ {
+         status = "okay";
+      };
+   };
+   // Fragment 2: Pinctrl for camera
+   fragment@2 {
+      target-path = "/pinctrl";
+      __overlay__ {
+         camerab {
+            camerab_pdn_l: camerab-pdn-l {
+               rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
+            };
+         };
+      };
+   };
+   // Fragment 3: Enable CSI DPHY (for MIPI, optional for DVP)
+   fragment@3 {
+		target = <&csi_dphy>;  // <-- TARGET EXISTING NODE
+		__overlay__ {
+			status = "okay";    // <-- JUST ENABLE IT
+		};
+	};
+	// Fragment 4: Connect vicap DVP port to sensor
+   fragment@4 {
+      target = <&vicap_dvp>;
+      __overlay__ {
+         status = "okay";
+      };
+   };
+   // Fragment 5: Enable I2C1 and add OV5647 sensor
+   fragment@5 {
+      target = <&i2c1>;
+      __overlay__ {
+         status = "okay";
+      };
+   };
+   // Fragment 6: Add pow er regulators (if not already in base DTB)
+   fragment@6 {
+      target-path = "/";
+      __overlay__ {
+         vcc1v8_dvp: vcc1v8-dvp {
+            compatible = "regulator-fixed";
+            regulator-name = "vcc1v8_dvp";
+            regulator-min-microvolt = <1800000>;
+            regulator-max-microvolt = <1800000>;
+            vin-supply = <&vcc3v3_sys>;
+            status = "okay";
+         };
+         vdd1v2_dvp: vdd1v2-dvp {
+            compatible = "regulator-fixed";
+            regulator-name = "vdd1v2_dvp";
+            regulator-min-microvolt = <1200000>;
+            regulator-max-microvolt = <1200000>;
+            vin-supply = <&vcc3v3_sys>;
+            status = "okay";
+         };
+         vcc2v8_dvp: vcc2v8-dvp {
+            compatible = "regulator-fixed";
+            regulator-name = "vcc2v8_dvp";
+            regulator-min-microvolt = <2800000>;
+            regulator-max-microvolt = <2800000>;
+            vin-supply = <&vcc3v3_sys>;
+            status = "okay";
+         };
+      };
+   };
+	fragment@7 {
+		target = <&cru>;
+		__overlay__ {
+			status = "okay";
+			assigned-clocks = <&cru CLK_CIF_OUT>;
+			assigned-clock-rates = <24000000>;
+		};
+	};
+};
