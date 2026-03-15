@@ -28,6 +28,8 @@
    fragment@1 {
       target = <&hdmi>;
       __overlay__ {
+         avdd-0v9-supply = <&vdda0v9_image>;
+         avdd-1v8-supply = <&vcca_1v8>;
          status = "okay";
       };
    };

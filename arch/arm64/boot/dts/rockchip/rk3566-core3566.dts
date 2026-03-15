@@ -17,11 +17,6 @@
 		mmc1 = &sdhci;
 	};
 
-	chosen: chosen {
-		stdout-path = "serial2:1500000n8";
-		bootargs = "storagemedia=emmc androidboot.storagemedia=emmc androidboot.mode=normal androidboot.verifiedbootstate=orange earlycon=uart8250,mmio32,0xfe660000 console=ttyS2,1500000 root=/dev/mmcblk1p6 rootwait";
-	};
-
 	vcc_sys: vcc-sys {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc_sys";
@@ -75,18 +70,10 @@
 		wakeup-source;
 		#clock-cells = <1>;
 
-		vcc1-supply = <&vcc3v3_sys>;
-		vcc2-supply = <&vcc3v3_sys>;
-		vcc3-supply = <&vcc3v3_sys>;
-		vcc4-supply = <&vcc3v3_sys>;
-		vcc5-supply = <&vcc3v3_sys>;
-		vcc6-supply = <&vcc3v3_sys>;
-		vcc7-supply = <&vcc3v3_sys>;
-		vcc8-supply = <&vcc3v3_sys>;
-		vcc9-supply = <&vcc3v3_sys>;
-
 		regulators {
 			vdd_logic: DCDC_REG1 {
+				vcc1-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vdd_logic";
 				regulator-always-on;
 				regulator-boot-on;
@@ -100,7 +87,24 @@
 				};
 			};
 
+			vdd_gpu: DCDC_REG2 {
+				vcc2-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
+				regulator-name = "vdd_gpu";
+				regulator-always-on;
+				regulator-boot-on;
+				regulator-min-microvolt = <500000>;
+				regulator-max-microvolt = <1350000>;
+				regulator-ramp-delay = <6001>;
+				regulator-initial-mode = <0x2>;
+				regulator-state-mem {
+					regulator-off-in-suspend;
+				};
+			};
+
 			vcc_ddr: DCDC_REG3 {
+				vcc3-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vcc_ddr";
 				regulator-always-on;
 				regulator-boot-on;
@@ -111,6 +115,8 @@
 			};
 
 			vdd_npu: DCDC_REG4 {
+				vcc4-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vdd_npu";
 				regulator-always-on;
 				regulator-boot-on;
@@ -125,6 +131,8 @@
 			};
 
 			vcc_1v8: DCDC_REG5 {
+				vcc9-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vcc_1v8";
 				regulator-always-on;
 				regulator-boot-on;
@@ -136,6 +144,8 @@
 			};
 
 			vdda0v9_image: LDO_REG1 {
+				vcc5-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vdda0v9_image";
 				regulator-always-on;
 				regulator-boot-on;
@@ -147,6 +157,8 @@
 			};
 
 			vdda_0v9: LDO_REG2 {
+				vcc5-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vdda_0v9";
 				regulator-always-on;
 				regulator-boot-on;
@@ -158,6 +170,8 @@
 			};
 
 			vdda0v9_pmu: LDO_REG3 {
+				vcc5-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vdda0v9_pmu";
 				regulator-always-on;
 				regulator-boot-on;
@@ -170,6 +184,8 @@
 			};
 
 			vccio_acodec: LDO_REG4 {
+				vcc6-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vccio_acodec";
 				regulator-always-on;
 				regulator-boot-on;
@@ -181,6 +197,8 @@
 			};
 
 			vccio_sd: LDO_REG5 {
+				vcc6-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vccio_sd";
 				regulator-always-on;
 				regulator-boot-on;
@@ -192,6 +210,8 @@
 			};
 
 			vcc3v3_pmu: LDO_REG6 {
+				vcc6-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vcc3v3_pmu";
 				regulator-always-on;
 				regulator-boot-on;
@@ -204,6 +224,8 @@
 			};
 
 			vcca_1v8: LDO_REG7 {
+				vcc7-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vcca_1v8";
 				regulator-always-on;
 				regulator-boot-on;
@@ -215,6 +237,8 @@
 			};
 
 			vcca1v8_pmu: LDO_REG8 {
+				vcc7-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vcca1v8_pmu";
 				regulator-always-on;
 				regulator-boot-on;
@@ -227,6 +251,8 @@
 			};
 
 			vccio_gpio: LDO_REG9 {
+				vcc7-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vccio_gpio";
 				regulator-always-on;
 				regulator-boot-on;
@@ -238,6 +264,8 @@
 			};
 
 			vcc_3v3: SWITCH_REG1 {
+				vcc9-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vcc_3v3";
 				regulator-always-on;
 				regulator-boot-on;
@@ -247,6 +275,8 @@
 			};
 
 			vcc3v3_sd: SWITCH_REG2 {
+				vcc8-supply = <&vcc3v3_sys>;
+				vin-supply = <&vcc_sys>;
 				regulator-name = "vcc3v3_sd";
 				regulator-always-on;
 				regulator-boot-on;
@@ -255,9 +285,8 @@
 				};
 			};
 		};
-
 		rtc {
-			status = "okay";
+			status = "disabled";
 		};
 	};
 };
@@ -272,6 +301,7 @@
 	sd-uhs-sdr50;
 	vmmc-supply = <&vcc3v3_sd>;
 	vqmmc-supply = <&vccio_sd>;
+	vqmmc2-supply = <&vcc_1v8>;
 	status = "okay";
 };
 
@@ -288,8 +318,10 @@
 };
 
 &pmu_io_domains {
+	pmuio1-supply = <&vcc3v3_pmu>;
 	pmuio2-supply = <&vcc3v3_pmu>;
 	vccio1-supply = <&vccio_acodec>;
+	vccio2-supply = <&vcc_1v8>;
 	vccio3-supply = <&vccio_sd>;
 	vccio4-supply = <&vcc_1v8>;
 	vccio5-supply = <&vcc_3v3>;
@@ -309,11 +341,13 @@
 	pinctrl-0 = <&emmc_bus8 &emmc_clk &emmc_cmd &emmc_datastrobe>;
 	vmmc-supply = <&vcc3v3_sys>;
 	vqmmc-supply = <&vcc_1v8>;
+	vqmmc2-supply = <&vcc_1v8>;
 	status = "okay";
 };
 
 &gmac1 {
 	phy-mode = "rgmii";
+	phy-supply = <&vcc_3v3>;
 	clock_in_out = "output";
 
 	snps,reset-gpio = <&gpio0 RK_PC6 GPIO_ACTIVE_LOW>;
@@ -352,6 +386,7 @@
 };
 
 &combphy2 {
+	phy-supply = <&vcc_1v8>;
 	status = "okay";
 };
 

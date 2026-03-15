@@ -54,6 +54,14 @@
       };
    };
 
+   fragment@2_host {
+      target = <&usb2phy0_host>;
+      __overlay__ {
+         status = "okay";
+         phy-supply = <&vcc5v0_usb_host>;
+      };
+   };
+
    fragment@3 {
       target = <&usb2phy0_otg>;
       __overlay__ {
