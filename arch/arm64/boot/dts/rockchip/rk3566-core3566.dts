@@ -37,6 +37,12 @@
 	};
 };
 
+&cpu_thermal {
+	status = "okay";
+};
+&tsadc {
+	status = "okay";
+};
 &i2c0 {
 	status = "okay";
 
