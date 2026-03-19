@@ -31,22 +31,22 @@
 			sustainable-power = <6000000>; //needed for power_allocator governor
 			trips {
 				fan_low: fan-low {
-					temperature = <32000>;
+					temperature = <24000>;
 					hysteresis = <2000>;
 					type = "passive"; //needed for power_allocator governor
 				};
 				fan_mid_l: fan-mid-l {
-					temperature = <40000>;
+					temperature = <32000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				fan_mid_h: fan-mid-h {
-					temperature = <48000>;
+					temperature = <40000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				fan_high: fan-high {
-					temperature = <56000>;
+					temperature = <48000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
