@@ -297,6 +297,10 @@
 	};
 };
 
+&i2c3 {
+	clock-frequency= <400000>;
+};
+
 &sdmmc0 {
 	bus-width = <4>;
 	cap-sd-highspeed;
