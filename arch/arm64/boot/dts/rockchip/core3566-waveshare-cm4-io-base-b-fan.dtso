@@ -1,0 +1,78 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/dts-v1/;
+ /plugin/;
+#include <dt-bindings/thermal/thermal.h>
+ / {
+	compatible = "luckfox,core3566", "rockchip,rk3566";
+	// Fragment 0: Add EMC2301 fan controller on I2C1
+	fragment@0 {
+		target = <&i2c1>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			// EMC2301 fan controller at address 0x2f
+			cpufan: emc2301@2f {
+				compatible = "microchip,emc2301";
+				reg = <0x2f>;
+				#cooling-cells = <2>;
+				#thermal-sensor-cells = <1>;
+				fan: fan {
+					#cooling-cells = <2>;
+					cooling-levels = <0 31 63 95 127 159 191 207 223 239 255>;
+				};
+			};
+		};
+	};
+	// Fragment 1: Link fan to CPU thermal zone
+	fragment@1 {
+		target = <&cpu_thermal>;
+		__overlay__ {
+			status = "okay";
+			sustainable-power = <6000000>; //needed for power_allocator governor
+			trips {
+				fan_low: fan-low {
+					temperature = <32000>;
+					hysteresis = <2000>;
+					type = "passive"; //needed for power_allocator governor
+				};
+				fan_mid_l: fan-mid-l {
+					temperature = <40000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+				fan_mid_h: fan-mid-h {
+					temperature = <48000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+				fan_high: fan-high {
+					temperature = <56000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+			};
+			cooling-maps {
+				map0 {
+					trip = <&fan_low>;
+					cooling-device = <&cpufan 0 2>;
+					contribution = <5000>;
+				};
+				map1 {
+					trip = <&fan_mid_l>;
+					cooling-device = <&cpufan 2 4>;
+					contribution = <5000>;
+				};
+				map2 {
+					trip = <&fan_mid_h>;
+					cooling-device = <&cpufan 4 7>;
+					contribution = <5000>;
+				};
+				map3 {
+					trip = <&fan_high>;
+					cooling-device = <&cpufan 7 10>;
+					contribution = <5000>;
+				};
+			};
+		};
+	};
+};
